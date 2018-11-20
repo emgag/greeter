@@ -18,4 +18,4 @@ $ make
 
 ## License
 
-varnish-towncrier is licensed under the [MIT License](http://opensource.org/licenses/MIT).
+greeter is licensed under the [MIT License](http://opensource.org/licenses/MIT).
