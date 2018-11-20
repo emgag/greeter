@@ -47,31 +47,37 @@ func main() {
 		var out []string
 
 		for _, p := range parts {
-			usage, err := disk.Usage(p.Mountpoint)
-			_ = err
+			if usage, err := disk.Usage(p.Mountpoint); err == nil {
+				c := aurora.Green
 
-			c := aurora.Green
-
-			if usage.UsedPercent >= 98 || usage.InodesUsedPercent >= 75 {
-				c = func(arg interface{}) aurora.Value {
-					return aurora.Red(aurora.Bold(arg))
+				if usage.UsedPercent >= 98 || usage.InodesUsedPercent >= 75 {
+					c = func(arg interface{}) aurora.Value {
+						return aurora.Red(aurora.Bold(arg))
+					}
+				} else if usage.UsedPercent >= 90 || usage.InodesUsedPercent >= 50 {
+					c = aurora.Red
+				} else if usage.UsedPercent >= 80 || usage.InodesUsedPercent >= 25 {
+					c = aurora.Brown
 				}
-			} else if usage.UsedPercent >= 90 || usage.InodesUsedPercent >= 50 {
-				c = aurora.Red
-			} else if usage.UsedPercent >= 80 || usage.InodesUsedPercent >= 25 {
-				c = aurora.Brown
+
+				o := c(fmt.Sprintf(
+					"%s => (%s, %.0f%%/%.0f%%, %s free)",
+					p.Mountpoint,
+					p.Fstype,
+					usage.UsedPercent,
+					usage.InodesUsedPercent,
+					humanize.IBytes(usage.Free),
+				)).String()
+
+				out = append(out, o)
+			} else {
+				out = append(
+					out,
+					aurora.Red(
+						fmt.Sprintf("%s => (%s)", p.Mountpoint, err),
+					).String(),
+				)
 			}
-
-			o := c(fmt.Sprintf(
-				"%s => (%s, %.0f%%/%.0f%%, %s free)",
-				p.Mountpoint,
-				p.Fstype,
-				usage.UsedPercent,
-				usage.InodesUsedPercent,
-				humanize.IBytes(usage.Free),
-			)).String()
-
-			out = append(out, o)
 		}
 
 		fmt.Printf("%s\n", strings.Join(out, " "))
