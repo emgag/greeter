@@ -1,9 +1,9 @@
-.PHONY: build install snapshot dist test vet lint fmt run clean docker
+.PHONY: build install snapshot dist test vet lint fmt run clean
 OUT := greeter
 PKG := github.com/emgag/greeter
 VERSION := $(shell git describe --always --dirty --tags)
-PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
-GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/)
+PKG_LIST := $(shell go list ${PKG}/...)
+GO_FILES := $(shell find . -name '*.go')
 
 all: build
 
