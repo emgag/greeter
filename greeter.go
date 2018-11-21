@@ -44,10 +44,17 @@ func main() {
 	if parts, err := disk.Partitions(false); err == nil {
 		fmt.Print(title("Storage"))
 
+		devices := make(map[string]bool)
 		var out []string
 
 		for _, p := range parts {
 			if usage, err := disk.Usage(p.Mountpoint); err == nil {
+				if _, ok := devices[p.Device]; ok {
+					continue
+				}
+
+				devices[p.Device] = true
+
 				c := aurora.Green
 
 				if usage.UsedPercent >= 98 || usage.InodesUsedPercent >= 75 {
