@@ -1,5 +1,7 @@
 builds:
   - binary: greeter
+    ldflags:
+    - -s -w
     env:
       - CGO_ENABLED=0
     goos:
