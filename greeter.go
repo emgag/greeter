@@ -5,6 +5,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/hako/durafmt"
 	"github.com/logrusorgru/aurora"
+	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/host"
 	"github.com/shirou/gopsutil/load"
@@ -36,7 +37,33 @@ func main() {
 	}
 
 	if loadavg, err := load.Avg(); err == nil {
-		fmt.Printf("%s%.2f, %.2f, %.2f\n", title("Load"), loadavg.Load1, loadavg.Load5, loadavg.Load15)
+		cpuinfo := ""
+
+		if info, err := cpu.Info(); err == nil {
+			// count cores
+			cores := make(map[string]bool)
+
+			for _, i := range info {
+				cores[i.CoreID] = true
+			}
+
+			if len(cores) > 1 {
+				cpuinfo = fmt.Sprintf("%d x ", len(cores))
+			}
+
+			cpuinfo += info[0].ModelName
+		} else {
+			cpuinfo = "Error getting CPU info"
+		}
+
+		fmt.Printf(
+			"%s%.2f, %.2f, %.2f [%s]\n",
+			title("Load"),
+			loadavg.Load1,
+			loadavg.Load5,
+			loadavg.Load15,
+			cpuinfo,
+		)
 	} else {
 		fmt.Println(aurora.Red("Error getting loadavg averages: "), err.Error())
 	}
