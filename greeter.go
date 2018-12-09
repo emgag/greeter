@@ -36,7 +36,7 @@ func main() {
 	}
 
 	if loadavg, err := load.Avg(); err == nil {
-		fmt.Printf("%s%v, %v, %v\n", title("Load"), loadavg.Load1, loadavg.Load5, loadavg.Load15)
+		fmt.Printf("%s%.2f, %.2f, %.2f\n", title("Load"), loadavg.Load1, loadavg.Load5, loadavg.Load15)
 	} else {
 		fmt.Println(aurora.Red("Error getting loadavg averages: "), err.Error())
 	}
