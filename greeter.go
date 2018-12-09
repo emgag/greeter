@@ -48,10 +48,12 @@ func main() {
 			}
 
 			if len(cores) > 1 {
-				cpuinfo = fmt.Sprintf("%d x ", len(cores))
+				cpuinfo = fmt.Sprintf("%d Cores", len(cores))
+			} else {
+				cpuinfo = fmt.Sprintf("1 Core", len(cores))
 			}
 
-			cpuinfo += info[0].ModelName
+			cpuinfo += ": " + info[0].ModelName
 		} else {
 			cpuinfo = "Error getting CPU info"
 		}
