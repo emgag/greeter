@@ -1,5 +1,7 @@
 # greeter
 
+![build](https://github.com/emgag/greeter/workflows/build/badge.svg?branch=master)
+
 Simple console greeter displaying some basic stuff about the system for a quick overview,  intended to run on an interactive login.
 
 ![Screenshot](docs/screenshot.png)
