@@ -1,14 +1,14 @@
 # greeter
 
-Simple console greeter displaying some basic stuff about the system for a quick overview.
+Simple console greeter displaying some basic stuff about the system for a quick overview,  intended to run on an interactive login.
 
-## Requirements
-
-Go >= 1.11
+![Screenshot](docs/screenshot.png)
 
 ## Build
 
-On Linux:
+Required: Go >= 1.13  
+
+### Linux:
 
 ```
 $ git clone github.com/emgag/greeter 
