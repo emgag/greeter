@@ -1,15 +1,27 @@
+before:
+  hooks:
+    - go mod tidy
 builds:
-  - binary: greeter
-    ldflags:
-    - -s -w
-    env:
+  - env:
       - CGO_ENABLED=0
+    binary: greeter
+    ldflags:
+      - -s -w
     goos:
       - linux
     goarch:
       - amd64
-archive:
-  format: tar.gz
-  files:
+archives:
+- files:
     - LICENSE
     - README.md
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
