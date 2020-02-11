@@ -27,7 +27,18 @@ func main() {
 
 	if info, err := host.Info(); err == nil {
 		fmt.Printf("%s%s\n", title("Host"), info.Hostname)
-		fmt.Printf("%s%s (%s %s)\n", title("OS"), info.KernelVersion, info.Platform, info.PlatformVersion)
+
+		kernel := strings.Trim(
+			fmt.Sprintf("%s %s", strings.Title(info.OS), info.KernelVersion),
+			" ",
+		)
+
+		platform := strings.Trim(
+			fmt.Sprintf("%s %s", strings.Title(info.Platform), info.PlatformVersion),
+			" ",
+		)
+
+		fmt.Printf("%s%s (%s)\n", title("OS"), kernel, platform)
 
 		bootime := time.Unix(int64(info.BootTime), 0)
 		uptime := time.Duration(info.Uptime) * time.Second
