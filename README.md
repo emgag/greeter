@@ -8,7 +8,7 @@ Simple console greeter displaying some basic stuff about the system for a quick 
 
 ## Build
 
-Required: Go >= 1.13  
+Required: Go >= 1.14  
 
 ### Linux:
 
