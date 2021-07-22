@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/dustin/go-humanize"
-	"github.com/hako/durafmt"
-	"github.com/logrusorgru/aurora"
-	"github.com/shirou/gopsutil/cpu"
-	"github.com/shirou/gopsutil/disk"
-	"github.com/shirou/gopsutil/host"
-	"github.com/shirou/gopsutil/load"
-	"github.com/shirou/gopsutil/mem"
 	"strings"
 	"time"
+
+	"github.com/dustin/go-humanize"
+	"github.com/hako/durafmt"
+	"github.com/logrusorgru/aurora/v3"
+	"github.com/shirou/gopsutil/v3/cpu"
+	"github.com/shirou/gopsutil/v3/disk"
+	"github.com/shirou/gopsutil/v3/host"
+	"github.com/shirou/gopsutil/v3/load"
+	"github.com/shirou/gopsutil/v3/mem"
 )
 
 const titleWidth = 8
