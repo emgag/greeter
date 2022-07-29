@@ -26,15 +26,10 @@ vet:
 	@go vet ${PKG_LIST}
 
 lint:
-	@for file in ${GO_FILES} ;  do \
-		golint $$file ; \
-	done
+	revive ./...
 
 fmt:
 	@gofmt -l -w -s ${GO_FILES}
-
-run: build
-	./${OUT} listen
 
 clean:
 	-@rm ${OUT}
